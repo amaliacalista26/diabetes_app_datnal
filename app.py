@@ -70,13 +70,17 @@ input_df = pd.DataFrame([{
     'bmi': bmi
 }])
 
-# Encode categorical
-for col, le in label_encoders.items():
-    if col in input_df.columns:
-        input_df[col] = le.transform(input_df[col])
+# Numeric columns (HARDCODE – harus sama dengan training)
+num_cols = [
+    'hba1c',
+    'glucose_fasting',
+    'glucose_postprandial',
+    'insulin_level',
+    'triglycerides',
+    'age',
+    'bmi'
+]
 
-# Scale numeric
-num_cols = input_df.select_dtypes(include=['int64', 'float64']).columns
 input_df[num_cols] = scaler.transform(input_df[num_cols])
 
 # Prediction Button
