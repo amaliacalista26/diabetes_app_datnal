@@ -81,7 +81,7 @@ num_cols = [
     'bmi'
 ]
 
-input_df[num_cols] = scaler.transform(input_df[num_cols])
+input_df[num_cols] = scaler.transform(input_df[num_cols].values)
 
 # Prediction Button
 if st.button("Predict Diabetes Status"):
