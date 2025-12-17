@@ -45,34 +45,29 @@ with col3:
         "Family History of Diabetes",
         ["No", "Yes"]
     )
-    age_group = st.selectbox(
-        "Age Group",
-        ["Young", "Adult", "Middle", "Elder"]
-    )
 
 with col4:
     hypertension = st.selectbox(
         "History of Hypertension",
         ["No", "Yes"]
     )
-    bmi_group = st.selectbox(
-        "BMI Category",
-        ["Underweight", "Normal", "Overweight", "Obese"]
-    )
+
+age = st.number_input("Age (years)", min_value=18, max_value=100)
+bmi = st.number_input("Body Mass Index (BMI)", min_value=10.0, max_value=60.0)
 
 st.markdown("---")
 
 # Prepare Input Data
 input_df = pd.DataFrame([{
-    "hba1c": hba1c,
-    "glucose_fasting": glucose_fasting,
-    "glucose_postprandial": glucose_post,
-    "insulin_level": insulin,
-    "triglycerides": triglycerides,
-    "family_history_diabetes": 1 if family_history == "Yes" else 0,
-    "hypertension_history": 1 if hypertension == "Yes" else 0,
-    "age_group": age_group,
-    "bmi_group": bmi_group
+    'hba1c': hba1c,
+    'glucose_fasting': glucose_fasting,
+    'glucose_postprandial': glucose_post,
+    'insulin_level': insulin,
+    'triglycerides': triglycerides,
+    'family_history_diabetes': 1 if family_history == "Yes" else 0,
+    'hypertension_history': 1 if hypertension == "Yes" else 0,
+    'age': age,
+    'bmi': bmi
 }])
 
 # Encode categorical
@@ -89,7 +84,7 @@ if st.button("Predict Diabetes Status"):
     pred = model.predict(input_df)[0]
     prob = model.predict_proba(input_df)[0][1]
 
-    st.markdown("### 📊 Prediction Result")
+    st.markdown("### Prediction Result")
 
     if pred == 1:
         st.error(
